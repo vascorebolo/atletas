@@ -5,6 +5,7 @@ heights = [1.75, 1.62, 1.80, 1.68, 1.90]
 weights = [68.5, 72.3, 65.8, 78.1, 70.2]
 run_times = [12, 11, 13, 10, 12]
 impulsions = [40, 33, 45, 32, 44]
+arrays = [names, ages, sexes, heights, run_times, impulsions]
 
 def printLine(num_times=60, char='–'):
   line = char * num_times
@@ -16,6 +17,24 @@ def waitInput():
 def invalidOption():
   print("Opção inválida")
   waitInput()
+
+def listNames():
+  printLine()
+  for index, name in enumerate(names):
+    print(f"[{index + 1}]: {name}")
+  printLine()
+
+def askForIndex():
+  try:
+    number = int(input("número do atleta: "))
+
+    if  0 < number <= len(names):
+      return number - 1
+    else:
+      invalidOption()
+  except ValueError:
+    invalidOption()
+
 
 def addAthlete():
   print("Inserir Dados")
@@ -44,21 +63,36 @@ def addAthlete():
   except ValueError:
     print("Erro: dados introduzidos inválidos")
 
-def displayAthleteData():
-  printLine()
+def removeAthlete():
+  listNames()
 
-  for index, name in enumerate(names):
-    print(f"[{index + 1}]: {name}")
-
-  printLine()
   try:
-    number = int(input("número do atleta a consultar: "))
-    if  0 < number <= len(names):
-      index = number - 1
+    index = askForIndex()
+
+    if (index is not None):
+      name = names[index]
+      sex = sexes[index]
+
+      for array in arrays:
+        del array[index]
+
+      printLine()
+      print(f"Atleta {name} {'removido' if sex == 'M' else 'removida'}.")
+      waitInput()
+  except ValueError:
+    invalidOption()
+
+def displayAthleteData():
+  listNames()
+
+  try:
+    index = askForIndex()
+    printLine()
+    print(index)
+    printLine()
+    if (index is not None):
       print(f"Nome: {names[index]} | Idade: {ages[index]} | : Género: {sexes[index]} | Altura: {heights[index]}")
       waitInput()
-    else:
-      invalidOption()
   except ValueError:
     invalidOption()
 
@@ -76,7 +110,7 @@ def getMenuOption():
   while True:
     try:
       choice = int(input("Escolha opção (1-5): "))
-      if 1 <= choice <= 5:
+      if 1 <= choice <= 6:
         return choice
       else:
         print("Opção inválida. Introduza um valor entre 1-5.")
@@ -93,7 +127,7 @@ def main():
       addAthlete()
     elif user_choice == 2:
       print("Opção 2.")
-      # Add your code for Option 2 here
+      removeAthlete()
     elif user_choice == 3:
       print("Opção 3.")
       displayAthleteData()
@@ -103,6 +137,11 @@ def main():
     elif user_choice == 5:
       print("Adeus.")
       break
+    elif user_choice == 6:
+      for array in arrays:
+        for value in array:
+          printLine()
+          print(value)
 
 if __name__ == "__main__":
   main()
