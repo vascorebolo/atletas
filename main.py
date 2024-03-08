@@ -7,7 +7,7 @@ run_times = [12, 11, 13, 10, 12]
 impulsions = [40, 33, 45, 32, 44]
 lists = [names, ages, sexes, heights, run_times, impulsions]
 
-def printLine(num_times=60, char='–'):
+def printLine(char='▄', num_times=60):
   line = char * num_times
   print(line)
 
@@ -98,7 +98,7 @@ def displayAthleteData():
 
 def displayMenu():
   printLine()
-  print("Menu:")
+  print("Menu Principal:")
   print("1. Inserir dados de atleta")
   print("2. Eliminar dados de atleta")
   print("3. Listar dados de atleta")
@@ -117,6 +117,60 @@ def getMenuOption():
     except ValueError:
       invalidOption()
 
+def displayStatsMenu():
+  printLine()
+  print("Menu Estatísticas:")
+  print("1. Média de alturas")
+  print("2. Média de idades")
+  print("3. Média de tempos de corrida")
+  print("4. Sair")
+  printLine()
+
+def calcAgesAvg():
+  total = 0
+  agesTotalM = 0
+  nrOfM = 0
+  agesTotalF = 0
+  nrOfF = 0
+
+  for index, age in enumerate(ages):
+    total += age
+
+    if sexes[index] == 'M':
+      agesTotalM += age
+      nrOfM += 1
+    else:
+      agesTotalF += age
+      nrOfF += 1
+
+  print(f'A média de idades é {total / len(ages)}')
+  print(f'A média de idades dos homens é {agesTotalM / nrOfM}')
+  print(f'A média de idades das mulheres é {agesTotalF / nrOfF}')
+  printLine('▒')
+  waitInput()
+
+def calcHeightAvg():
+  total = 0
+  for height in heights:
+    total += height
+
+  print(f'A média de alturas é {total / len(heights)}')
+  printLine('▒')
+  waitInput()
+
+def displayStats():
+  while True:
+    displayStatsMenu()
+    choice = int(input('Escolha opção (1-4): '))
+
+    match choice:
+      case 1:
+        calcHeightAvg()
+      case 2:
+        calcAgesAvg()
+      case _:
+        break
+
 def main():
   while True:
     displayMenu()
@@ -130,7 +184,7 @@ def main():
       case 3:
         displayAthleteData()
       case 4:
-        print('to be made')
+        displayStats()
       case 5:
         print('Adeus.')
         break
