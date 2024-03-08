@@ -122,26 +122,23 @@ def main():
     displayMenu()
     user_choice = getMenuOption()
 
-    if user_choice == 1:
-      print("Opção 1.")
-      addAthlete()
-    elif user_choice == 2:
-      print("Opção 2.")
-      removeAthlete()
-    elif user_choice == 3:
-      print("Opção 3.")
-      displayAthleteData()
-    elif user_choice == 4:
-      print("Opção 4.")
-      # Add your code for Option 4 here
-    elif user_choice == 5:
-      print("Adeus.")
-      break
-    elif user_choice == 6:
-      for list in lists:
-        for value in list:
-          printLine()
-          print(value)
+    match user_choice:
+      case 1:
+        addAthlete()
+      case 2:
+        removeAthlete()
+      case 3:
+        displayAthleteData()
+      case 4:
+        print('to be made')
+      case 5:
+        print('Adeus.')
+        break
+      case 6:
+        for list in lists:
+          for value in list:
+            printLine()
+            print(value)
 
 if __name__ == "__main__":
   main()
