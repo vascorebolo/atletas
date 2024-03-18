@@ -7,36 +7,36 @@ run_times = [12, 11, 13, 10, 12]
 impulsions = [40, 33, 45, 32, 44]
 lists = [names, ages, sexes, heights, run_times, impulsions]
 
-def printLine(char='▄', num_times=60):
+def print_line(char='▄', num_times=60):
   line = char * num_times
   print(line)
 
-def waitInput():
-  input("Prima qualquer tecla para continuar...")
+def wait_for_input():
+  input("Prima enter para continuar...")
 
-def invalidOption():
+def invalid_option():
   print("Opção inválida")
-  waitInput()
+  wait_for_input()
 
-def listNames():
-  printLine()
+def list_names():
+  print_line()
   for index, name in enumerate(names):
     print(f"[{index + 1}]: {name}")
-  printLine()
+  print_line()
 
-def askForIndex():
+def ask_for_index():
   try:
     number = int(input("número do atleta: "))
 
     if  0 < number <= len(names):
       return number - 1
     else:
-      invalidOption()
+      invalid_option()
   except ValueError:
-    invalidOption()
+    invalid_option()
 
 
-def addAthlete():
+def add_athlete():
   print("Inserir Dados")
   try:
     name = str(input("nome: "))
@@ -56,18 +56,19 @@ def addAthlete():
     impulsions.append(impulsion)
 
     index = len(names) - 1
-    printLine()
+    print_line()
     print(f"Nome: {names[index]} | Idade: {ages[index]} | : Género: {sexes[index]} | Altura: {heights[index]}")
-    printLine()
-    waitInput()
+    print_line()
+    wait_for_input()
   except ValueError:
     print("Erro: dados introduzidos inválidos")
+    wait_for_input()
 
-def removeAthlete():
-  listNames()
+def remove_athlete():
+  list_names()
 
   try:
-    index = askForIndex()
+    index = ask_for_index()
 
     if (index is not None):
       name = names[index]
@@ -76,37 +77,35 @@ def removeAthlete():
       for list in lists:
         del list[index]
 
-      printLine()
+      print_line()
       print(f"Atleta {name} {'removido' if sex == 'M' else 'removida'}.")
-      waitInput()
+      wait_for_input()
   except ValueError:
-    invalidOption()
+    invalid_option()
 
-def displayAthleteData():
-  listNames()
+def display_athletes_data():
+  list_names()
 
   try:
-    index = askForIndex()
-    printLine()
-    print(index)
-    printLine()
+    index = ask_for_index()
+
     if (index is not None):
       print(f"Nome: {names[index]} | Idade: {ages[index]} | : Género: {sexes[index]} | Altura: {heights[index]}")
-      waitInput()
+      wait_for_input()
   except ValueError:
-    invalidOption()
+    invalid_option()
 
-def displayMenu():
-  printLine()
+def display_menu():
+  print_line()
   print("Menu Principal:")
   print("1. Inserir dados de atleta")
   print("2. Eliminar dados de atleta")
   print("3. Listar dados de atleta")
   print("4. Dados Estatísticos")
   print("5. Sair")
-  printLine()
+  print_line()
 
-def getMenuOption():
+def get_menu_option():
   while True:
     try:
       choice = int(input("Escolha opção (1-5): "))
@@ -115,16 +114,16 @@ def getMenuOption():
       else:
         print("Opção inválida. Introduza um valor entre 1-5.")
     except ValueError:
-      invalidOption()
+      invalid_option()
 
-def displayStatsMenu():
-  printLine()
+def display_stats_menu():
+  print_line()
   print("Menu Estatísticas:")
   print("1. Média de alturas")
   print("2. Média de idades")
   print("3. Média de tempos de corrida")
   print("4. Sair")
-  printLine()
+  print_line()
 
 def calcAgesAvg():
   total = 0
@@ -146,8 +145,8 @@ def calcAgesAvg():
   print(f'A média de idades é {total / len(ages)}')
   print(f'A média de idades dos homens é {agesTotalM / nrOfM}')
   print(f'A média de idades das mulheres é {agesTotalF / nrOfF}')
-  printLine('▒')
-  waitInput()
+  print_line('▒')
+  wait_for_input()
 
 def calcHeightAvg():
   total = 0
@@ -155,12 +154,12 @@ def calcHeightAvg():
     total += height
 
   print(f'A média de alturas é {total / len(heights)}')
-  printLine('▒')
-  waitInput()
+  print_line('▒')
+  wait_for_input()
 
-def displayStats():
+def display_stats():
   while True:
-    displayStatsMenu()
+    display_stats_menu()
     choice = int(input('Escolha opção (1-4): '))
 
     match choice:
@@ -173,25 +172,25 @@ def displayStats():
 
 def main():
   while True:
-    displayMenu()
-    user_choice = getMenuOption()
+    display_menu()
+    user_choice = get_menu_option()
 
     match user_choice:
       case 1:
-        addAthlete()
+        add_athlete()
       case 2:
-        removeAthlete()
+        remove_athlete()
       case 3:
-        displayAthleteData()
+        display_athletes_data()
       case 4:
-        displayStats()
+        display_stats()
       case 5:
         print('Adeus.')
         break
       case 6:
         for list in lists:
           for value in list:
-            printLine()
+            print_line()
             print(value)
 
 if __name__ == "__main__":
