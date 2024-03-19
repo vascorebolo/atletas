@@ -5,7 +5,11 @@ heights = [1.75, 1.62, 1.80, 1.68, 1.90]
 weights = [68.5, 72.3, 65.8, 78.1, 70.2]
 run_times = [12, 11, 13, 10, 12]
 impulsions = [40, 33, 45, 32, 44]
-lists = [names, ages, sexes, heights, run_times, impulsions]
+def calc_bmi(weight, height):
+  return round(weight / (height ** 2), 2)
+bmis = list(map(lambda touple: calc_bmi(touple[1], heights[touple[0]]), enumerate(weights)))
+lists = [names, ages, sexes, heights, run_times, impulsions, bmis]
+
 
 def print_line(char='▄', num_times=60):
   line = char * num_times
@@ -103,6 +107,7 @@ def display_menu():
   print("3. Listar dados de atleta")
   print("4. Dados Estatísticos")
   print("5. Sair")
+
   print_line()
 
 def get_menu_option():
@@ -126,11 +131,7 @@ def display_stats_menu():
   print_line()
 
 def calcAgesAvg():
-  total = 0
-  agesTotalM = 0
-  nrOfM = 0
-  agesTotalF = 0
-  nrOfF = 0
+  total, agesTotalM, nrOfM, agesTotalF, nrOfF = 0, 0, 0, 0, 0
 
   for index, age in enumerate(ages):
     total += age
